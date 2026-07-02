@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lexis — Dictionary & Translator</title>
+  <meta name="theme-color" content="#c4622d"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="Lexis"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" href="icon-192.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-diamond">◈</span>
+      <span class="brand-name">Lexis</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link active" data-view="home"    href="#"><span class="nav-ico">⌂</span> Home</a>
+      <a class="nav-link"        data-view="dict"    href="#"><span class="nav-ico">📖</span> Dictionary</a>
+      <a class="nav-link"        data-view="quiz"    href="#"><span class="nav-ico">◎</span> Word Quiz</a>
+      <a class="nav-link"        data-view="library" href="#"><span class="nav-ico">▦</span> Library</a>
+      <a class="nav-link"        data-view="favs"    href="#"><span class="nav-ico">♥</span> Favorites</a>
+      <a class="nav-link"        data-view="history" href="#"><span class="nav-ico">◷</span> History</a>
+      <div class="nav-divider"></div>
+      <a class="nav-link"        id="theme-btn"      href="#"><span class="nav-ico">◑</span> <span id="theme-label">Dark Mode</span></a>
+    </nav>
+
+    <div class="wotd-card" id="wotd-card">
+      <p class="wotd-eyebrow">Word of the Day</p>
+      <p class="wotd-word" id="wotd-word">"Serendipity"</p>
+      <p class="wotd-def" id="wotd-def">The occurrence of events by chance in a happy way.</p>
+      <button class="wotd-btn" id="wotd-btn">Learn More →</button>
+    </div>
+  </aside>
+
+  <div class="app-shell">
+
+    <header class="topbar">
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <form id="search-form" autocomplete="off">
+          <input id="word-input" type="text" placeholder="Search any word…" spellcheck="false"/>
+        </form>
+        <button class="mic-btn" id="mic-btn" title="Voice search">🎙</button>
+      </div>
+      <div class="topbar-right">
+        <div class="lang-flag-btn" id="lang-flag-btn">
+          <span>🌐</span>
+          <span id="ui-lang-label">English</span>
+          <span>∨</span>
+        </div>
+        <div class="avatar">S</div>
+      </div>
+    </header>
+
+    <div class="page active" id="page-home">
+      <div class="home-content">
+        <div class="home-hero">
+          <p class="home-eyebrow">The Modern Lexicon</p>
+          <h1 class="home-title">Words hold <em>infinite</em> worlds.</h1>
+          <p class="home-sub">Search any word for definitions, translations into 100+ languages, AI explanations, and example sentences.</p>
+          <div class="home-stats">
+            <div class="hstat"><span id="stat-saved">0</span><small>Saved</small></div>
+            <div class="hstat"><span id="stat-fav">0</span><small>Favorites</small></div>
+            <div class="hstat"><span id="stat-today">0</span><small>Today</small></div>
+          </div>
+        </div>
+        <div class="home-trending">
+          <div class="trending-header">
+            <span class="trending-title">Trending Words</span>
+            <button class="see-all-btn">See all</button>
+          </div>
+          <div class="trending-chips" id="trending-chips"></div>
+        </div>
+        <div class="recent-searches-block" id="recent-searches-block"></div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-word">
+      <div class="word-page-grid">
+
+        <div class="word-main-col">
+
+          <div class="word-card">
+            <div class="word-top-row">
+              <div>
+                <h1 class="word-title" id="wt-word">—</h1>
+                <span class="word-phonetic" id="wt-phonetic">/.../</span>
+              </div>
+              <div class="word-top-actions">
+                <button class="icon-action" id="wa-speak" title="Listen">🔊</button>
+                <button class="icon-action" id="wa-fav"   title="Save">🤍</button>
+                <button class="icon-action" id="wa-save"  title="Add to library">📋</button>
+                <button class="icon-action" id="wa-share" title="Share">↗</button>
+              </div>
+            </div>
+            <div class="pos-badge-row" id="wt-pos-badges"></div>
+
+            <div class="def-tabs" id="def-tabs"></div>
+            <div class="def-body"  id="def-body"></div>
+          </div>
+
+          <div class="examples-card">
+            <div class="card-header-row">
+              <span class="card-title">📖 Examples</span>
+              <div class="ex-lang-select-wrap">
+                <label class="tc-label">Show in</label>
+                <select id="ex-lang-select" class="tc-select">
+                  <option value="en">English</option>
+                  <option value="ta">Tamil</option>
+                  <option value="hi">Hindi</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="es">Spanish</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
+                  <option value="ar">Arabic</option>
+                  <option value="ru">Russian</option>
+                  <option value="zh">Chinese</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="it">Italian</option>
+                  <option value="bn">Bengali</option>
+                  <option value="te">Telugu</option>
+                  <option value="ml">Malayalam</option>
+                  <option value="kn">Kannada</option>
+                </select>
+              </div>
+            </div>
+            <div class="examples-list" id="examples-list">
+              <div class="ex-placeholder">Search a word to see examples.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="word-side-col">
+
+          <div class="translate-card">
+            <div class="card-header-row">
+              <span class="card-title">⇄ Translate</span>
+            </div>
+            <div class="tc-lang-row">
+              <label class="tc-label">Translate to</label>
+              <select id="trans-to" class="tc-select"></select>
+            </div>
+            <div class="tc-output" id="tc-output">
+              <p class="tc-idle" id="it-idle">Pick a language above to translate this word.</p>
+              <div class="tc-loading" id="it-loading" style="display:none">
+                <div class="spinner"></div><span>Translating…</span>
+              </div>
+              <p class="tc-result" id="it-result" style="display:none"></p>
+              <p class="tc-error" id="it-error" style="display:none">Translation unavailable. Check your connection and try again.</p>
+            </div>
+            <div class="tc-actions" id="tc-actions" style="display:none">
+              <button class="trans-act-btn" id="it-listen">🔊 Listen</button>
+              <button class="trans-act-btn" id="it-copy">📋 Copy</button>
+            </div>
+          </div>
+
+          <div class="ai-card">
+            <div class="card-header-row">
+              <span class="card-title">✦ AI Explain</span>
+              <span class="new-badge">Free</span>
+            </div>
+            <div class="ai-body" id="ai-body">
+              <p class="ai-placeholder">Search a word to get a simple AI explanation.</p>
+            </div>
+            <button class="explain-more-btn hidden" id="explain-more-btn">Explain More</button>
+          </div>
+
+          <div class="usage-card">
+            <div class="card-header-row">
+              <span class="card-title">📊 Word Usage</span>
+              <span class="new-badge new">New</span>
+            </div>
+            <div class="usage-body" id="usage-body">
+              <p class="usage-placeholder">Usage stats will appear here.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-quiz">
+      <div class="quiz-wrap" id="quiz-wrap"></div>
+    </div>
+
+    <div class="page hidden" id="page-library">
+      <div class="lib-page">
+        <div class="lib-header">
+          <h2 class="page-title">Library</h2>
+          <input type="text" id="lib-search" class="lib-search" placeholder="Filter words…"/>
+        </div>
+        <div class="word-grid" id="word-grid"></div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-favs">
+      <div class="lib-page">
+        <div class="lib-header"><h2 class="page-title">Favorites</h2></div>
+        <div class="word-grid" id="fav-grid"></div>
+      </div>
+    </div>
+
+    <div class="page hidden" id="page-history">
+      <div class="lib-page">
+        <div class="lib-header">
+          <h2 class="page-title">History</h2>
+          <button class="danger-btn" id="clear-history-btn">Clear History</button>
+        </div>
+        <div id="history-list-page"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mob-overlay hidden" id="mob-overlay"></div>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <div class="install-banner hidden" id="install-banner">
+    <span>📲 Add Lexis to your home screen</span>
+    <button id="install-yes">Install</button>
+    <button id="install-no">✕</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
